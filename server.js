@@ -5,6 +5,9 @@ import morgan from "morgan";
 // import {readdirSync} from 'fs'
 import "colors";
 
+// DB
+import connectDB from './db/connectDB.js';
+
 dotenv.config();
 const app = express();
 
@@ -20,6 +23,16 @@ app.use(express.json());
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}...`.yellow.bold);
-});
+const start = async () => {
+    try {
+      await connectDB(process.env.MONGO_URL);
+      app.listen(port, () => {
+        console.log(`Server is running on port ${port}...`.yellow.bold);
+      });
+    } catch (error) {
+      console.error(`Error:${error.message}`.red.underline.bold);
+      process.exit(1);
+    }
+  };
+  
+  start();
