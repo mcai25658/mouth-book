@@ -11,6 +11,7 @@
   "rules": {
     "no-process-exit": "off",
     "no-debugger": "off",
+    "func-names": "off",
     "import/extensions": [
       "error",
       {

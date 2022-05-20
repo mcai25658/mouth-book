@@ -1,34 +1,48 @@
 import mongoose from 'mongoose';
+import isEmail from 'validator/lib/isEmail.js';
+import bcrypt from 'bcryptjs';
 
 const { ObjectId } = mongoose.Schema;
 
 const userSchema = mongoose.Schema(
   {
-    first_name: {
+    firstName: {
       type: String,
       required: [true, 'first name is required'],
       trim: true,
       text: true,
+      minlength: [3, 'firstName 最少三個字'],
+      maxlength: [20, 'firstName 最多20個字'],
     },
-    last_name: {
+    lastName: {
       type: String,
       required: [true, 'last name is required'],
       trim: true,
       text: true,
+      minlength: [3, 'lastName 最少三個字'],
+      maxlength: [20, 'lastName 最多20個字'],
     },
     username: {
       type: String,
       required: [true, 'username is required'],
       trim: true,
-      text: true,
       unique: true,
+      minlength: [3, 'username 最少三個字'],
+      maxlength: [20, 'username 最多20個字'],
+      // text: true,
     },
 
     email: {
       type: String,
       required: [true, 'email is required'],
       trim: true,
+      unique: true,
+      validate: {
+        validator: isEmail,
+        message: '無效的 Email',
+      },
     },
+
     password: {
       type: String,
       required: [true, 'password is required'],
@@ -154,6 +168,24 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   },
 );
+
+userSchema.method('toJSON', function () {
+  const {
+    __v, password, createdAt, updatedAt, ...object
+  } = this.toObject();
+  return object;
+});
+
+userSchema.pre('save', async function (next) {
+  // 每次數據儲存錢都會 call 這個 hook
+  // 所以需確認密碼這個欄位是否有修改, 如果沒有修改,就直接call next()
+  // 若是密碼有修改,則將密碼加密
+  if (!this.isModified('password')) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
 const User = mongoose.model('User', userSchema);
 

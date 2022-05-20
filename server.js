@@ -2,8 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
-// import {readdirSync} from 'fs'
 import 'colors';
+import 'express-async-errors';
+
+// Router
+import authRouter from './routes/authRouter.js';
+
+// Middleware
+import { errorHandleMiddleware, notFoundMiddleware } from './middleware/index.js';
 
 // DB
 import connectDB from './DB/connectDB.js';
@@ -18,8 +24,10 @@ if (process.env.NODE_ENV === 'DEV') {
 app.use(cors());
 app.use(express.json());
 
-// routes
-// readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r)));
+app.use('/api/v1/auth', authRouter);
+
+app.use(errorHandleMiddleware);
+app.use(notFoundMiddleware);
 
 const port = process.env.PORT || 5000;
 
@@ -36,3 +44,6 @@ const start = async () => {
 };
 
 start();
+
+// routes
+// readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r)));
