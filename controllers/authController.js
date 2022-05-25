@@ -25,7 +25,9 @@ export const register = async (req, res) => {
     gender,
   });
 
-  res.json(user);
+  const token = await user.createJWT();
+
+  res.json({ user, token });
 };
 
 export const login = (req, res) => {

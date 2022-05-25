@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import isEmail from 'validator/lib/isEmail.js';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const { ObjectId } = mongoose.Schema;
 
@@ -169,6 +170,7 @@ const userSchema = mongoose.Schema(
   },
 );
 
+// Hooks
 userSchema.method('toJSON', function () {
   const {
     __v, password, createdAt, updatedAt, ...object
@@ -186,6 +188,14 @@ userSchema.pre('save', async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+// Methods
+userSchema.methods.createJWT = function () {
+  // eslint-disable-next-line
+  return jwt.sign({ userID: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_LIVE_TIME,
+  });
+};
 
 const User = mongoose.model('User', userSchema);
 
