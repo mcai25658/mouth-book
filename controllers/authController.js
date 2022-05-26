@@ -41,6 +41,7 @@ export const register = async (req, res) => {
     username: user.username,
     picture: user.picture,
     verified: user.verified,
+    message: '註冊成功，驗證信件已經發送到你的Email',
     token,
   });
 };

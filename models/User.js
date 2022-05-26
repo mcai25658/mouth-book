@@ -172,6 +172,7 @@ const userSchema = mongoose.Schema(
 
 // Hooks
 userSchema.method('toJSON', function () {
+  // 將數據轉乘 JSON 時回傳的內容
   const {
     __v, password, createdAt, updatedAt, ...object
   } = this.toObject();
