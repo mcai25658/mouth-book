@@ -1,4 +1,6 @@
+import { StatusCodes } from 'http-status-codes';
 import User from '../models/User.js';
+import sendEmail from '../utils/mail-service.js';
 
 export const register = async (req, res) => {
   const {
@@ -27,7 +29,20 @@ export const register = async (req, res) => {
 
   const token = await user.createJWT();
 
-  res.json({ user, token });
+  const url = `${process.env.BASE_URL}/activate/${token}`;
+
+  sendEmail(email, firstName, url);
+
+  res.status(StatusCodes.CREATED).json({
+    // eslint-disable-next-line
+    _id: user._id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    username: user.username,
+    picture: user.picture,
+    verified: user.verified,
+    token,
+  });
 };
 
 export const login = (req, res) => {
