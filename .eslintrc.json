@@ -9,6 +9,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "no-underscore-dangle": "off",
     "no-process-exit": "off",
     "no-debugger": "off",
     "func-names": "off",

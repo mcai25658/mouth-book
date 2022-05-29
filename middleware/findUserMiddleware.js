@@ -1,7 +1,7 @@
 import User from '../models/User.js';
 import { BadRequestError } from '../errors/index.js';
 
-const noUserMiddleware = async (req, res, next) => {
+const findUserMiddleware = async (req, res, next) => {
   const { userID } = req.user;
   const user = await User.findById(userID);
 
@@ -9,7 +9,9 @@ const noUserMiddleware = async (req, res, next) => {
     throw new BadRequestError('帳號不存在');
   }
 
+  req.user.data = user;
+
   next();
 };
 
-export default noUserMiddleware;
+export default findUserMiddleware;

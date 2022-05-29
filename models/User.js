@@ -174,19 +174,29 @@ const userSchema = mongoose.Schema(
 
 userSchema.plugin(uniqueValidator, { message: '{PATH} 已經存在' });
 
-// Hooks
+// @desc 將數據轉成 JSON 時呼叫的 hook
 userSchema.method('toJSON', function () {
-  // 將數據轉乘 JSON 時回傳的內容
   const {
-    __v, password, createdAt, updatedAt, ...object
+    _id,
+    firstName,
+    lastName,
+    username,
+    picture,
+    verified,
   } = this.toObject();
-  return object;
+
+  return {
+    _id,
+    firstName,
+    lastName,
+    username,
+    picture,
+    verified,
+  };
 });
 
+// @desc 每次數據儲存前都會 call 這個 hook, 所以需確認密碼這個欄位是否有修改, 如果沒有修改,就直接call next(), 若是密碼有修改,則將密碼加密
 userSchema.pre('save', async function (next) {
-  // 每次數據儲存錢都會 call 這個 hook
-  // 所以需確認密碼這個欄位是否有修改, 如果沒有修改,就直接call next()
-  // 若是密碼有修改,則將密碼加密
   if (!this.isModified('password')) {
     next();
   }
@@ -194,12 +204,17 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Methods
+// @desc 建立 JWT
 userSchema.methods.createJWT = function () {
-  // eslint-disable-next-line
   return jwt.sign({ userID: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_LIVE_TIME,
   });
+};
+
+// @desc 密碼驗證
+userSchema.methods.matchPassword = async function (candidatePassword) {
+  const isMatch = await bcrypt.compare(candidatePassword, this.password);
+  return isMatch;
 };
 
 const User = mongoose.model('User', userSchema);
