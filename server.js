@@ -7,9 +7,12 @@ import 'express-async-errors';
 
 // Router
 import authRouter from './routes/authRouter.js';
+import userRouter from './routes/userRouter.js';
 
 // Middleware
-import { errorHandleMiddleware, notFoundMiddleware } from './middleware/index.js';
+import {
+  errorHandleMiddleware, notFoundMiddleware, authenticateUserMiddleware, noUserMiddleware,
+} from './middleware/index.js';
 
 // DB
 import connectDB from './DB/connectDB.js';
@@ -25,6 +28,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', authenticateUserMiddleware, noUserMiddleware, userRouter);
 
 app.use(errorHandleMiddleware);
 app.use(notFoundMiddleware);

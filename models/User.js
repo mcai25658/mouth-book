@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 import isEmail from 'validator/lib/isEmail.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -37,6 +38,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'email is required'],
       trim: true,
+      index: true,
       unique: true,
       validate: {
         validator: isEmail,
@@ -169,6 +171,8 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   },
 );
+
+userSchema.plugin(uniqueValidator, { message: '{PATH} 已經存在' });
 
 // Hooks
 userSchema.method('toJSON', function () {

@@ -11,7 +11,7 @@ const errorHandleMiddleware = (error, req, res, next) => {
     defaultError.statusCode = StatusCodes.BAD_REQUEST;
     defaultError.message = `${Object.keys(
       error.keyValue,
-    )} 重複`;
+    )} 已經存在`;
   }
 
   if (error.name === 'ValidationError') {
