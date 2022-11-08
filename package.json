@@ -1,5 +1,5 @@
 {
-  "name": "mouth-book",
+  "name": "mouth-book-server",
   "version": "1.0.0",
   "engines": {
     "node": ">=12.0.0"
@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\"",
-    "client": "npm start --prefix client",
+    "client": "npm run dev --prefix client",
     "server": "nodemon server --ignore client"
   },
   "keywords": [],
@@ -30,12 +30,20 @@
     "mongoose-unique-validator": "^3.0.0",
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.5",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
+    "commitizen": "^4.2.5",
     "concurrently": "^7.2.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.15.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

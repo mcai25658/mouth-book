@@ -1,78 +1,59 @@
 {
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "One Dark Pro Darker",
-    "workbench.startupEditor": "none",
-  
-    "cSpell.languageSettings": [],
-    "cSpell.userWords": [
-      "browserslist",
-      "localforage",
-      "Parens",
-      "TTFB",
-      "virtuals"
-    ],
-  
-    // 編輯器
-    "editor.fontFamily": "Fira Code",
-    "editor.occurrencesHighlight": false,
-    "editor.selectionHighlight": false,
-    "editor.fontLigatures": true,
-    "editor.formatOnSave": false,
-  
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true,
-      "source.fixAll.stylelint": true
-    },
-  
-    // Stylelint
-    "stylelint.validate": ["css", "scss"],
-  
-    // Eslint
-    "eslint.alwaysShowStatus": true,
-    "eslint.options": {
-      "extensions": [".html", ".js", ".vue", ".ts", ".tsx", ".jsx"]
-    },
-    "eslint.validate": [
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact"
-    ],
-  
-    // Prettier
-    "[typescriptreact]": {
-      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[javascript]": {
-      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[json]": {
-      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[javascriptreact]": {
-      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[jsonc]": {
-      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[css]": {
-      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[scss]": {
-      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[html]": {
-      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-  
-    // 其他
-    "explorer.compactFolders": false,
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "explorer.confirmDelete": true,
-    "liveServer.settings.port": 0,
-    "gitlens.currentLine.dateFormat": "",
-    "cSpell.words": [
-      "stylelint"
-    ]
+  "eslint.options": {
+    "overrideConfigFile": ".eslintrc.json"
+  },
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.fontFamily": "Fira Code",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": [
+    "antd",
+    "ashx",
+    "bouns",
+    "browserslist",
+    "chatscope",
+    "clsx",
+    "coinbank",
+    "countrycode",
+    "formdata",
+    "hoverable",
+    "inlinesvg",
+    "linebreak",
+    "orderstatus",
+    "persistor",
+    "Resizer",
+    "scroller",
+    "sundes",
+    "Sysdate",
+    "tailwindcss",
+    "toastify",
+    "UNINSTANTIATED",
+    "VITE",
+    "webp",
+    "zustand"
+  ],
+  "[javascript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
-  
+}

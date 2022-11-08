@@ -1,0 +1,43 @@
+.animation-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.animation-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 250ms, transform 250ms;
+}
+
+.animation-exit {
+  display: none !important;
+}
+
+.animation-exit-active {
+  display: none !important;
+}
+
+// .animation-enter {
+//   opacity: 0;
+//   transform: scale(0.9);
+// }
+
+// .animation-enter-active {
+//   opacity: 1;
+//   transform: translateX(0);
+//   transition: opacity 200ms, transform 200ms;
+// }
+
+// .animation-exit {
+//   display: none !important;
+//   // opacity: 1;
+//   // background-color: red !important;
+// }
+
+// .animation-exit-active {
+//   // background-color: green !important;
+//   display: none !important;
+//   // opacity: 0 !important;
+//   // transform: scale(0.9);
+//   // transition: opacity 200ms, transform 200ms;
+// }
